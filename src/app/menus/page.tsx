@@ -14,18 +14,67 @@ interface MenuItem {
   description: string;
 }
 
-// Type for menu sections
-interface MenuSection {
-  [key: string]: MenuItem[];
+// Types for different menu sections
+interface DinnerMenu {
+  antipasti: MenuItem[];
+  pasta: MenuItem[];
+  secondi: MenuItem[];
+  contorni: MenuItem[];
+}
+
+interface BrunchMenuAtlanta {
+  starters: MenuItem[];
+  mains: MenuItem[];
+  sides: MenuItem[];
+}
+
+interface BrunchMenuCary {
+  antipasti: MenuItem[];
+  uova: MenuItem[];
+  dolci: MenuItem[];
+}
+
+interface HappyHourMenuAtlanta {
+  bites: MenuItem[];
+  drinks: MenuItem[];
+}
+
+interface HappyHourMenuCary {
+  stuzzichini: MenuItem[];
+  bevande: MenuItem[];
+}
+
+interface WineMenuAtlanta {
+  sparkling: MenuItem[];
+  white: MenuItem[];
+  red: MenuItem[];
+  cocktails: MenuItem[];
+}
+
+interface WineMenuCary {
+  bollicine: MenuItem[];
+  bianchi: MenuItem[];
+  rossi: MenuItem[];
+  cocktails: MenuItem[];
+}
+
+interface DessertMenuAtlanta {
+  dolci: MenuItem[];
+  coffee: MenuItem[];
+}
+
+interface DessertMenuCary {
+  dolci: MenuItem[];
+  caffe: MenuItem[];
 }
 
 // Type for all menus
 interface LocationMenus {
-  dinner: MenuSection;
-  brunch: MenuSection;
-  'happy-hour': MenuSection;
-  wine: MenuSection;
-  dessert: MenuSection;
+  dinner: DinnerMenu;
+  brunch: BrunchMenuAtlanta | BrunchMenuCary;
+  'happy-hour': HappyHourMenuAtlanta | HappyHourMenuCary;
+  wine: WineMenuAtlanta | WineMenuCary;
+  dessert: DessertMenuAtlanta | DessertMenuCary;
 }
 
 // Atlanta Menu Data
@@ -577,8 +626,8 @@ export default function MenusPage() {
 
   // Select menu based on location and category
   const currentMenu = location === 'atlanta' 
-    ? atlantaMenus[category as keyof LocationMenus]
-    : caryMenus[category as keyof LocationMenus]
+    ? (atlantaMenus[category] as LocationMenus[typeof category])
+    : (caryMenus[category] as LocationMenus[typeof category])
 
   const renderMenuSection = (title: string, items: MenuItem[]) => (
     <div>
@@ -600,12 +649,13 @@ export default function MenusPage() {
 
   const renderMenu = () => {
     if (category === 'dinner') {
+      const menu = currentMenu as DinnerMenu;
       return (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
-          {renderMenuSection('Antipasti', currentMenu.antipasti)}
-          {renderMenuSection('Pasta', currentMenu.pasta)}
-          {renderMenuSection('Secondi', currentMenu.secondi)}
-          {renderMenuSection('Contorni', currentMenu.contorni)}
+          {renderMenuSection('Antipasti', menu.antipasti)}
+          {renderMenuSection('Pasta', menu.pasta)}
+          {renderMenuSection('Secondi', menu.secondi)}
+          {renderMenuSection('Contorni', menu.contorni)}
         </div>
       )
     }
@@ -615,15 +665,15 @@ export default function MenusPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
           {location === 'atlanta' ? (
             <>
-              {renderMenuSection('Starters', currentMenu.starters)}
-              {renderMenuSection('Mains', currentMenu.mains)}
-              {renderMenuSection('Sides', currentMenu.sides)}
+              {renderMenuSection('Starters', (currentMenu as BrunchMenuAtlanta).starters)}
+              {renderMenuSection('Mains', (currentMenu as BrunchMenuAtlanta).mains)}
+              {renderMenuSection('Sides', (currentMenu as BrunchMenuAtlanta).sides)}
             </>
           ) : (
             <>
-              {renderMenuSection('Antipasti', currentMenu.antipasti)}
-              {renderMenuSection('Uova', currentMenu.uova)}
-              {renderMenuSection('Dolci', currentMenu.dolci)}
+              {renderMenuSection('Antipasti', (currentMenu as BrunchMenuCary).antipasti)}
+              {renderMenuSection('Uova', (currentMenu as BrunchMenuCary).uova)}
+              {renderMenuSection('Dolci', (currentMenu as BrunchMenuCary).dolci)}
             </>
           )}
         </div>
@@ -635,13 +685,13 @@ export default function MenusPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
           {location === 'atlanta' ? (
             <>
-              {renderMenuSection('Bites', currentMenu.bites)}
-              {renderMenuSection('Drinks', currentMenu.drinks)}
+              {renderMenuSection('Bites', (currentMenu as HappyHourMenuAtlanta).bites)}
+              {renderMenuSection('Drinks', (currentMenu as HappyHourMenuAtlanta).drinks)}
             </>
           ) : (
             <>
-              {renderMenuSection('Stuzzichini', currentMenu.stuzzichini)}
-              {renderMenuSection('Bevande', currentMenu.bevande)}
+              {renderMenuSection('Stuzzichini', (currentMenu as HappyHourMenuCary).stuzzichini)}
+              {renderMenuSection('Bevande', (currentMenu as HappyHourMenuCary).bevande)}
             </>
           )}
         </div>
@@ -653,17 +703,17 @@ export default function MenusPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
           {location === 'atlanta' ? (
             <>
-              {renderMenuSection('Sparkling', currentMenu.sparkling)}
-              {renderMenuSection('White', currentMenu.white)}
-              {renderMenuSection('Red', currentMenu.red)}
-              {renderMenuSection('Cocktails', currentMenu.cocktails)}
+              {renderMenuSection('Sparkling', (currentMenu as WineMenuAtlanta).sparkling)}
+              {renderMenuSection('White', (currentMenu as WineMenuAtlanta).white)}
+              {renderMenuSection('Red', (currentMenu as WineMenuAtlanta).red)}
+              {renderMenuSection('Cocktails', (currentMenu as WineMenuAtlanta).cocktails)}
             </>
           ) : (
             <>
-              {renderMenuSection('Bollicine', currentMenu.bollicine)}
-              {renderMenuSection('Bianchi', currentMenu.bianchi)}
-              {renderMenuSection('Rossi', currentMenu.rossi)}
-              {renderMenuSection('Cocktails', currentMenu.cocktails)}
+              {renderMenuSection('Bollicine', (currentMenu as WineMenuCary).bollicine)}
+              {renderMenuSection('Bianchi', (currentMenu as WineMenuCary).bianchi)}
+              {renderMenuSection('Rossi', (currentMenu as WineMenuCary).rossi)}
+              {renderMenuSection('Cocktails', (currentMenu as WineMenuCary).cocktails)}
             </>
           )}
         </div>
@@ -675,13 +725,13 @@ export default function MenusPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24">
           {location === 'atlanta' ? (
             <>
-              {renderMenuSection('Desserts', currentMenu.dolci)}
-              {renderMenuSection('Coffee', currentMenu.coffee)}
+              {renderMenuSection('Desserts', (currentMenu as DessertMenuAtlanta).dolci)}
+              {renderMenuSection('Coffee', (currentMenu as DessertMenuAtlanta).coffee)}
             </>
           ) : (
             <>
-              {renderMenuSection('Dolci', currentMenu.dolci)}
-              {renderMenuSection('Caffè', currentMenu.caffe)}
+              {renderMenuSection('Dolci', (currentMenu as DessertMenuCary).dolci)}
+              {renderMenuSection('Caffè', (currentMenu as DessertMenuCary).caffe)}
             </>
           )}
         </div>
@@ -723,7 +773,7 @@ export default function MenusPage() {
                 variant="outline"
                 size="lg"
                 className={`font-['DAYROM'] ${category === cat ? 'bg-black text-white' : 'text-black'}`}
-                onClick={() => setCategory(cat)}
+                onClick={() => setCategory(cat as MenuCategory)}
               >
                 {cat === 'wine' ? 'Wine & Cocktails' : 
                  cat.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}
