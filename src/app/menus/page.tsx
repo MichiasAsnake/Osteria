@@ -4,6 +4,35 @@ import { Button } from '@/components/ui/button'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
 
+// Define menu categories type
+type MenuCategory = 'dinner' | 'brunch' | 'happy-hour' | 'wine' | 'dessert';
+
+// Type for menu items
+interface MenuItem {
+  name: string;
+  price: string;
+  description: string;
+}
+
+// Type for menu sections
+interface MenuSection {
+  [key: string]: MenuItem[];
+}
+
+// Type for complete menu
+interface Menu {
+  [key: string]: MenuSection;
+}
+
+// Type for all menus
+interface LocationMenus {
+  dinner: MenuSection;
+  brunch: MenuSection;
+  'happy-hour': MenuSection;
+  wine: MenuSection;
+  dessert: MenuSection;
+}
+
 // Atlanta Menu Data
 const atlantaMenus = {
   dinner: {
@@ -548,15 +577,15 @@ const caryMenus = {
 }
 
 export default function MenusPage() {
-  const [location, setLocation] = useState('atlanta')
-  const [category, setCategory] = useState('dinner')
+  const [location, setLocation] = useState<'atlanta' | 'cary'>('atlanta')
+  const [category, setCategory] = useState<MenuCategory>('dinner')
 
   // Select menu based on location and category
-  const currentMenu = location === 'atlanta' ? 
-    (category === 'dinner' ? atlantaMenus.dinner : atlantaMenus[category]) :
-    (category === 'dinner' ? caryMenus.dinner : caryMenus[category])
+  const currentMenu = location === 'atlanta' 
+    ? atlantaMenus[category as keyof LocationMenus]
+    : caryMenus[category as keyof LocationMenus]
 
-  const renderMenuSection = (title, items) => (
+  const renderMenuSection = (title: string, items: MenuItem[]) => (
     <div>
       <h2 className="font-['DAYROM'] text-4xl mb-10 tracking-tight">{title}</h2>
       <div className="space-y-8">
