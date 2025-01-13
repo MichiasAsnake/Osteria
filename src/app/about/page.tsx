@@ -39,7 +39,7 @@ export default function AboutPage() {
           <p className="text-lg leading-relaxed mb-8">
             Osteria Luna, inspired by the enchanting Italian evenings where families gather under moonlit skies, 
             brings the magic of authentic Italian dining to modern American tables. Our philosophy centers on the 
-            art of "convivio" - the joy of sharing good food, wine, and conversation.
+            art of &ldquo;convivio&rdquo; - the joy of sharing good food, wine, and conversation.
           </p>
           <p className="text-lg leading-relaxed">
             Each evening, as the sun sets and the moon rises, our kitchens come alive with the rhythms of 
