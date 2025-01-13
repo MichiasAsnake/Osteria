@@ -6,7 +6,13 @@ import { motion } from 'framer-motion'
 
 const images = [
   "/asian-woman-eating-restaurant.jpg",
-  "/group-dining-restaurant.jpg"
+  "/group-dining-restaurant.jpg",
+  "/chef-cooking.jpg",
+  "/pasta-making.jpg",
+  "/wine-selection.jpg",
+  "/restaurant-interior.jpg",
+  "/dessert-plating.jpg",
+  "/bar-area.jpg"
 ]
 
 export default function Hero() {
