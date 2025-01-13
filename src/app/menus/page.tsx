@@ -19,11 +19,6 @@ interface MenuSection {
   [key: string]: MenuItem[];
 }
 
-// Type for complete menu
-interface Menu {
-  [key: string]: MenuSection;
-}
-
 // Type for all menus
 interface LocationMenus {
   dinner: MenuSection;
