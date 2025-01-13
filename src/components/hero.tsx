@@ -5,14 +5,26 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 
 const images = [
-  "/asian-woman-eating-restaurant.jpg",
-  "/group-dining-restaurant.jpg",
-  "/chef-cooking.jpg",
-  "/pasta-making.jpg",
-  "/wine-selection.jpg",
-  "/restaurant-interior.jpg",
-  "/dessert-plating.jpg",
-  "/bar-area.jpg"
+  "/images/kristof-korody-4bb4gqTeoKo-unsplash.jpg",
+  "/images/kristof-korody-lSQGmRDRisU-unsplash.jpg",
+  "/images/kristof-korody-wOcQe5-oKyo-unsplash (1).jpg",
+  "/images/kristof-korody-_KlwQzqdXr8-unsplash.jpg",
+  "/images/kristof-korody-P3hY4dnjQgA-unsplash.jpg",
+  "/images/kristof-korody-IXpYGLXaI3g-unsplash.jpg",
+  "/images/kristof-korody-VOC-tjwRwc4-unsplash.jpg",
+  "/images/kristof-korody-dqbqj3mdFfA-unsplash.jpg",
+  "/images/kristof-korody-F0Y061kT4bM-unsplash.jpg",
+  "/images/kristof-korody-O3gB6kC0wmI-unsplash.jpg",
+  "/images/kristof-korody-PZTKppUR0h0-unsplash.jpg",
+  "/images/marissa-grootes-u2Lp8tXIcjw-unsplash.jpg",
+  "/images/indoor-eating.jpg",
+  "/images/avocado-toast.jpg",
+  "/images/calamari-dish.jpg",
+  "/images/souffle-mushroom.jpg",
+  "/images/roasted-tomatoes.jpg",
+  "/images/restaraunt.jpg",
+  "/images/caviar-bite.jpg",
+  "/images/fine-dining-table.jpg"
 ]
 
 export default function Hero() {
